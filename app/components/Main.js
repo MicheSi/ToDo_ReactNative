@@ -13,12 +13,14 @@ export default function Main() {
         <View style={styles.footer}>
             <TextInput 
              style={styles.textInput}
-             placeholder='Enter to do'
+             placeholder='Add to do'
              placeholderTextColor='white'
              underlineColorAndroid='transparent'>
             </TextInput>
-
         </View>
+        <TouchableOpacity style={styles.addButton}>
+            <Text style={styles.addButtonText}>+</Text>
+        </TouchableOpacity>
       
     </View>
   );
