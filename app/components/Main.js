@@ -1,51 +1,61 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Note from './Note';
 
-export default function Main() {
-    const [notesList, setNotesList] = useState([])
-    const [noteText, setNoteText] = useState('')
-
-    const notes = notesList.map((val, key) => {
-        return <Note key={key} keyval={key} val={val}
-                deleteMethod={() => deleteNote(key)}/>
-    })
-
-    const addNote = () => {
-        if (noteText) {
-            const noteDate = new Date();
-            notesList.push({
-                'date': noteDate.getFullYear() + '/' + (noteDate.getMonth() + 1) + '/' + noteDate.getDate()
-            })
-            setNotesList(...notesList)
-            setNoteText('')
+export default class Main extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            noteList: [],
+            noteText: ''
         }
     }
+    
+    render () {
+        let notes = this.state.notesList.map((val, key) => {
+            return <Note key={key} keyval={key} val={val}
+                    deleteMethod={() => this.state.deleteNote(key)}/>
+        })
 
-  return (
-    <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.headerText}>To Do List</Text>
-        </View>
-        <ScrollView style={styles.scrollContainer}>
-            {notes}
-        </ScrollView>
-        <View style={styles.footer}>
-            <TextInput 
-             style={styles.textInput}
-             onChangeText={() => setNoteText()}
-             value={noteText}
-             placeholder='Add to do'
-             placeholderTextColor='white'
-             underlineColorAndroid='transparent'>
-            </TextInput>
-        </View>
-        <TouchableOpacity onPress={addNote} style={styles.addButton}>
-            <Text style={styles.addButtonText}>+</Text>
-        </TouchableOpacity>
-      
-    </View>
-  );
+
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.headerText}>To Do List</Text>
+                </View>
+                <ScrollView style={styles.scrollContainer}>
+                    {notes}
+                </ScrollView>
+                <View style={styles.footer}>
+                    <TextInput 
+                     style={styles.textInput}
+                     onChangeText={(noteText) => this.setState({noteText})}
+                     value={this.state.noteText}
+                     placeholder='Add to do'
+                     placeholderTextColor='white'
+                     underlineColorAndroid='transparent'>
+                    </TextInput>
+                </View>
+                <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButton}>
+                    <Text style={styles.addButtonText}>+</Text>
+                </TouchableOpacity>
+              
+            </View>
+          );
+    }
+
+    addNote() {
+        if (this.state.noteText) {
+            const noteDate = new Date();
+            this.state.notesList.push({
+                'date': noteDate.getFullYear() + '/' + (noteDate.getMonth() + 1) + '/' + noteDate.getDate(),
+                'note': noteText
+            })
+            this.setState({notesList: this.state.notesList})
+            this.setState({noteText: ''})
+        }
+    }
+  
 }
 
 const styles = StyleSheet.create({
