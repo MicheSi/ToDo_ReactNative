@@ -6,7 +6,7 @@ export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            noteList: [],
+            notesList: [],
             noteText: ''
         }
     }
@@ -49,7 +49,7 @@ export default class Main extends React.Component {
             const noteDate = new Date();
             this.state.notesList.push({
                 'date': noteDate.getFullYear() + '/' + (noteDate.getMonth() + 1) + '/' + noteDate.getDate(),
-                'note': noteText
+                'note': this.state.noteText
             })
             this.setState({notesList: this.state.notesList})
             this.setState({noteText: ''})
