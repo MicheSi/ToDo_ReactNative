@@ -14,7 +14,7 @@ export default class Main extends React.Component {
     render () {
         let notes = this.state.notesList.map((val, key) => {
             return <Note key={key} keyval={key} val={val}
-                    deleteMethod={() => this.state.deleteNote(key)}/>
+                    deleteMethod={() => this.deleteNote(key)}/>
         })
 
 
@@ -54,6 +54,11 @@ export default class Main extends React.Component {
             this.setState({notesList: this.state.notesList})
             this.setState({noteText: ''})
         }
+    }
+
+    deleteNote(key) {
+        this.state.notesList.splice(key, 1);
+        this.setState({notesList: this.state.notesList})
     }
   
 }
