@@ -17,7 +17,6 @@ export default class Main extends React.Component {
                     deleteMethod={() => this.deleteNote(key)}/>
         })
 
-
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -31,7 +30,7 @@ export default class Main extends React.Component {
                      style={styles.textInput}
                      onChangeText={(noteText) => this.setState({noteText})}
                      value={this.state.noteText}
-                     placeholder='Add to do'
+                     placeholder='Add new item'
                      placeholderTextColor='white'
                      underlineColorAndroid='transparent'>
                     </TextInput>
@@ -48,7 +47,7 @@ export default class Main extends React.Component {
         if (this.state.noteText) {
             const noteDate = new Date();
             this.state.notesList.push({
-                'date': noteDate.getFullYear() + '/' + (noteDate.getMonth() + 1) + '/' + noteDate.getDate(),
+                'date':  (noteDate.getMonth() + 1) + '/' + noteDate.getDate() + '/' + noteDate.getFullYear(),
                 'note': this.state.noteText
             })
             this.setState({notesList: this.state.notesList})
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-      backgroundColor: '#E91E63',
+      backgroundColor: '#4682B4',
       alignItems: 'center',
       justifyContent: 'center',
       borderBottomWidth: 10,
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
       zIndex: 11,
       right: 20,
       bottom: 90,
-      backgroundColor: '#E91E63',
+      backgroundColor: '#4682B4',
       width: 90,
       height: 90,
       borderRadius: 50,
